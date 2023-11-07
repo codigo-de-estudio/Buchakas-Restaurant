@@ -1,0 +1,142 @@
+openapi: 3.0.3
+info:
+  title: Buchakas Restaurant - OpenAPI 3.0
+  description: |-
+    This is a sample Buchakas restaurant Server based on the OpenAPI 3.0 specification.  You can find out more about
+    Swagger at [https://swagger.io](https://swagger.io). In the third iteration of the Buchakas restaurant, we've switched to the design first approach!
+    You can now help us improve the API whether it's by making changes to the definition itself or to the code.
+    That way, with time, we can improve the API in general, and expose some of the new features in OAS3.
+
+    _If you're looking for the Swagger 2.0/OAS 2.0 version of buchakas, then click [here](https://editor.swagger.io/?url=https://buchakas.swagger.io/v2/swagger.yaml). Alternatively, you can load via the `Edit > Load buchakas OAS 2.0` menu option!_
+   
+    Some useful links:
+    - [The Buchakas restaurant repository](https://github.com/swagger-api/swagger-buchakas)
+    - [The source API definition for the buchakas restaurant](https://github.com/swagger-api/swagger-buchakas/blob/master/src/main/resources/openapi.yaml)
+  version: 1.0.0
+servers:
+  - url: https://buchakas-restaurant-api.com
+tags:
+  - name: dishes
+    description: Operations related to restaurant dishes
+paths:
+  /dishes:
+    get:
+      tags:
+        - dishes
+      summary: Get all dishes
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Dish'
+    post:
+      tags:
+        - dishes
+      summary: Add a new dish
+      requestBody:
+        description: Dish object to be added
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Dish'
+      responses:
+        '201':
+          description: Dish created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Dish'
+  /dishes/{dishId}:
+    get:
+      tags:
+        - dishes
+      summary: Get dish by ID
+      parameters:
+        - name: dishId
+          in: path
+          description: ID of the dish to retrieve
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Dish'
+        '404':
+          description: Dish not found
+    put:
+      tags:
+        - dishes
+      summary: Update an existing dish
+      parameters:
+        - name: dishId
+          in: path
+          description: ID of the dish to update
+          required: true
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        description: Updated dish object
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Dish'
+      responses:
+        '200':
+          description: Dish updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Dish'
+        '404':
+          description: Dish not found
+    delete:
+      tags:
+        - dishes
+      summary: Delete a dish
+      parameters:
+        - name: dishId
+          in: path
+          description: ID of the dish to delete
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '204':
+          description: Dish deleted successfully
+        '404':
+          description: Dish not found
+components:
+  schemas:
+    Dish:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: 1
+        name:
+          type: string
+          example: Flautas
+        description:
+          type: string
+          example: Crispy rolled tacos filled with seasoned meat.
+        price:
+          type: number
+          format: float
+          example: 9.99
+        category:
+          type: string
+          example: Mexican
