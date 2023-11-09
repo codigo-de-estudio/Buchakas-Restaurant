@@ -8,7 +8,7 @@ info:
     That way, with time, we can improve the API in general, and expose some of the new features in OAS3.
 
     _If you're looking for the Swagger 2.0/OAS 2.0 version of buchakas, then click [here](https://editor.swagger.io/?url=https://buchakas.swagger.io/v2/swagger.yaml). Alternatively, you can load via the `Edit > Load buchakas OAS 2.0` menu option!_
-   
+
     Some useful links:
     - [The Buchakas restaurant repository](https://github.com/swagger-api/swagger-buchakas)
     - [The source API definition for the buchakas restaurant](https://github.com/swagger-api/swagger-buchakas/blob/master/src/main/resources/openapi.yaml)
@@ -38,19 +38,19 @@ paths:
         - dishes
       summary: Add a new dish
       requestBody:
-        description: Dish object to be added
+        description: Tosh object to be added
         required: true
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Dish'
+              $ref: '#/components/schemas/Tosh'
       responses:
         '201':
-          description: Dish created successfully
+          description: Tosh created successfully
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Dish'
+                $ref: '#/components/schemas/Tosh'
   /dishes/{dishId}:
     get:
       tags:
@@ -120,6 +120,22 @@ paths:
           description: Dish not found
 components:
   schemas:
+    Tosh:
+      type: object
+      properties:
+        name:
+          type: string
+          example: Hamburger
+        description:
+          type: string
+          example: Hamburguer with chesse and fries.
+        price:
+          type: number
+          format: float
+          example: 9.99
+        category:
+          type: string
+          example: Mexican
     Dish:
       type: object
       properties:
